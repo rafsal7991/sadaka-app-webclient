@@ -1,0 +1,258 @@
+import React, { useState } from "react";
+import { Loader } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Select, MenuItem, FormControl, TextField } from "@mui/material";
+import Textinput from "@/components/ui/Textinput";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
+const schema = yup
+  .object({
+    ExchangeRateCode: yup.string().required("ExchangeRate is Required"),
+    ExchangeRateDescription: yup
+      .string()
+      .required("ExchangeRate Description is Required"),
+  })
+  .required();
+
+const AddExchangeRate = () => {
+  const user = useSelector((e) => e.user);
+  const [isLoading, setisLoading] = useState(false);
+  const [ExchangeRateAndDescription, setExchangeRateAndDescription] = useState({
+    ExchangeRateCode: "",
+    ExchangeRateDescription: "",
+  });
+
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(schema),
+    //
+    mode: "all",
+  });
+
+  const onSubmit = async (data) => {
+    setisLoading(true);
+    // const ExchangeRateResponse = await ExchangeRateController.saveExchangeRate(
+    //   user.userInfo.UsrResp.UsrDtl,
+    //   user.accessToken.access_token,
+    //   data
+    // );
+    // if (ExchangeRateResponse.status == 200) {
+    //   toast.success("successfully added", { autoClose: 4000 });
+    //   window.location.reload();
+    // }
+    // if (ExchangeRateResponse.status == 400) {
+    //   toast.error(ExchangeRateResponse.message.SetupInfResp.StsDesc, {
+    //     autoClose: 4000,
+    //   });
+    // }
+    // if (ExchangeRateResponse.status == 401) {
+    //   dispatch(logout());
+    // }
+    // if (ExchangeRateResponse.status == 404) {
+    //   toast.error("Not found", { autoClose: 4000 });
+    // }
+    // if (ExchangeRateResponse.status == 500) {
+    //   toast.error(
+    //     "Failure to process Request at this Time,Please try again later",
+    //     { autoClose: 4000 }
+    //   );
+    // }
+    // setisLoading(false);
+  };
+
+  const handleChangeExchangeRateAndDescription = (event) => {
+    const { name, value } = event.target;
+    setExchangeRateAndDescription((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <div className="page-wrapper">
+      <nav className="flex mb-3" aria-label="Breadcrumb">
+        <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+          <li className="inline-flex items-center">
+            <Link
+              to="/"
+              className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+            >
+              <svg
+                className="w-3 h-3 me-2.5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+              </svg>
+              Home
+            </Link>
+          </li>
+          <li>
+            <div className="flex items-center">
+              <svg
+                className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+              <Link
+                to="/userManagement/ExchangeRate"
+                className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+              >
+                ExchangeRate List
+              </Link>
+            </div>
+          </li>
+          <li aria-current="page">
+            <div className="flex items-center">
+              <svg
+                className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+              <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+                Add ExchangeRate
+              </span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <h4 className="card-title">Create ExchangeRate</h4>
+      <div className="mb-4 text-sm text-red-500">
+        <strong>Fields marked with * are mandatory</strong>
+      </div>
+      <div className="content">
+        {/* <div className="page-header">
+          <div className="page-title">
+            <h4>Create ExchangeRate</h4>
+            <h6>Manage ExchangeRate</h6>
+          </div>
+        </div> */}
+        {/* /product list */}
+        <div className="card p-3">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
+            {/* First Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-group">
+                <label>Branch <span className="text-red-500">*</span></label>
+                <Textinput
+                  id="itemCode"
+                  type="text"
+                  name="itemCode"
+                  register={register}
+                  error={errors.itemCode}
+                />
+              </div>
+              <div className="form-group">
+                <label>Currency <span className="text-red-500">*</span></label>
+                <FormControl sx={{ minWidth: 200, '& .MuiSelect-root': { height: '30px' } }} fullWidth>
+                  <Select
+                    labelId="purchase-type-label"
+                    name="PurchaseType"
+                    value={"select..."}
+                    size="small"
+                  >
+                    {/* Add MenuItem components here */}
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
+            {/* second Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-group">
+                <label>Rate Amount<span className="text-red-500">*</span></label>
+                <Textinput
+                  id="itemCode"
+                  type="text"
+                  name="itemCode"
+                  register={register}
+                  error={errors.itemCode}
+                />
+              </div>
+              <div className="form-group">
+                <label>Rate Code <span className="text-red-500">*</span></label>
+                <Textinput
+                  id="itemDescription"
+                  type="text"
+                  name="itemDescription"
+                  register={register}
+                  error={errors.itemDescription}
+                />
+              </div>
+            </div>
+
+            {/* Third*/}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-group">
+                <label>Date <span className="text-red-500">*</span></label>
+                <TextField
+                  type="date"
+                  name="Date"
+                  sx={{ minWidth: 450, '& input': { height: '30px' } }} // Adjust height as needed
+                  fullWidth
+                  size="small" // This reduces the padding and height
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+
+              </div>
+            </div>
+
+
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                type="reset"
+                className="text-red-500 bg-white btn hover:text-red-500 hover:bg-red-100 focus:text-red-500 focus:bg-red-100 active:text-red-500 active:bg-red-100 dark:bg-zink-700 dark:hover:bg-red-500/10 dark:focus:bg-red-500/10 dark:active:bg-red-500/10"
+              >
+                Cancel
+              </button>
+              <div className="col-span-3 flex justify-end">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={isLoading}
+                >
+                  {isLoading ? <Loader className="animate-spin" /> : "Submit"}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        {/* /product list */}
+      </div>
+    </div>
+  );
+};
+
+export default AddExchangeRate;

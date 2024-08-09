@@ -1,0 +1,37 @@
+.avatar {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    background-image: linear-gradient(to bottom right, #e5f7fd, #c7edfc);
+    color: rgb(6, 65, 124);
+    border: 1px solid #b7b7b8;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.2em;
+  }
+  
+  .online-dot {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #26af48;
+  }
+  
+  .avatar img {
+    border-radius: 50%;
+  }
+  
+  .avatar-letters {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Bitstream Vera Sans Mono", fantasy;
+  }
+  
